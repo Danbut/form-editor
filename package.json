@@ -1,0 +1,36 @@
+{
+  "name": "form-editor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/Danbut/form-editor.git"
+  },
+  "author": "Buterus D. V. <danielbuterus@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://gitlab.com/Danbut/form-editor/issues"
+  },
+  "homepage": "https://gitlab.com/Danbut/form-editor#readme",
+  "devDependencies": {
+    "cz-conventional-changelog": "3.0.2",
+    "husky": "4.0.10",
+    "lerna": "^3.16.4"
+  },
+  "husky": {
+    "hooks": {
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
+      "pre-commit": "lerna run lint",
+      "pre-push": "lerna run test"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
