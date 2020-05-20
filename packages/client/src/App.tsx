@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme, Theme, createStyles } from '@material-ui/core/styles';
-import { Toolbar, IconButton, Typography, AppBar, CssBaseline, Drawer, Divider, List } from '@material-ui/core';
+import { Toolbar, IconButton, Typography, AppBar, CssBaseline, Drawer, Divider, List, Button } from '@material-ui/core';
 import {
     Menu as MenuIcon,
     ChevronLeft as ChevronLeftIcon,
@@ -68,6 +68,17 @@ const useStyles = makeStyles((theme: Theme) =>
                 duration: theme.transitions.duration.enteringScreen,
             }),
             marginLeft: 0,
+        },
+        editors: {
+            width: '100%',
+            height: `calc(100vh - 160px)`,
+            display: 'flex',
+            flex: '0 0 auto',
+            flexDirection: 'row',
+            justifyContent: 'space-evenly',
+            [theme.breakpoints.between('xs', 'md')]: {
+                flexDirection: 'column',
+            },
         },
     }),
 );
@@ -142,33 +153,54 @@ const App: React.FC = () => {
                 style={{ display: 'flex', flexDirection: 'column', minHeight: '100%' }}
             >
                 <div className={classes.drawerHeader} />
-                <div style={{ width: '100%', height: '64', display: 'flex', alignItems: 'center', flex: '1 0 auto' }}>
-                    <Typography variant="h6" noWrap style={{ width: '50%', paddingLeft: '40px' }}>
-                        Command:
-                    </Typography>
-                    <Typography variant="h6" noWrap style={{ width: '50%', paddingLeft: '40px' }}>
-                        Form:
-                    </Typography>
+                <div className={classes.editors}>
+                    <div
+                        style={{
+                            width: '100%',
+                            height: '100%',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'space-evenly',
+                        }}
+                    >
+                        <Typography variant="h6" noWrap style={{ width: '50%', paddingLeft: '40px' }}>
+                            Command:
+                        </Typography>
+                        <AceEditor
+                            mode="json"
+                            theme="github"
+                            onChange={onChange}
+                            name="UNIQUE_ID_OF_DIV"
+                            editorProps={{ $blockScrolling: true }}
+                            style={{ width: '100%', height: '90%' }}
+                        />
+                    </div>
+                    <div
+                        style={{
+                            width: '100%',
+                            height: '100%',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'space-evenly',
+                        }}
+                    >
+                        <Typography variant="h6" noWrap style={{ width: '50%', paddingLeft: '40px' }}>
+                            Form:
+                        </Typography>
+                        <AceEditor
+                            mode="json"
+                            theme="github"
+                            onChange={onChange}
+                            name="UNIQUE_ID_OF_DIV"
+                            editorProps={{ $blockScrolling: true }}
+                            style={{ width: '100%', height: '90%' }}
+                            readOnly={true}
+                        />
+                    </div>
                 </div>
-                <div style={{ width: '100%', height: `calc(100vh - 128px)`, display: 'flex', flex: '0 0 auto' }}>
-                    <AceEditor
-                        mode="json"
-                        theme="github"
-                        onChange={onChange}
-                        name="UNIQUE_ID_OF_DIV"
-                        editorProps={{ $blockScrolling: true }}
-                        style={{ width: '50%', height: '100%' }}
-                    />
-                    <AceEditor
-                        mode="json"
-                        theme="github"
-                        onChange={onChange}
-                        name="UNIQUE_ID_OF_DIV"
-                        editorProps={{ $blockScrolling: true }}
-                        style={{ width: '50%', height: '100%' }}
-                        readOnly={true}
-                    />
-                </div>
+                <Button variant="contained" color="primary" style={{ margin: 'auto', width: '55%' }}>
+                    Execute
+                </Button>
             </main>
         </div>
     );
